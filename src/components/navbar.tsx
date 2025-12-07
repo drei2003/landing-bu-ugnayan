@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown, GraduationCap, Users, ShieldCheck } from "lucide-react";
+import { InView } from "@/components/ui/in-view";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,8 +25,15 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-background border-b">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+      <InView
+        viewOptions={{ once: true, margin: '0px' }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { duration: 1.5, ease: 'easeOut' } },
+        }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center gap-2">
@@ -222,6 +230,7 @@ export function Navbar() {
           </div>
         )}
       </div>
+      </InView>
     </nav>
   );
 }

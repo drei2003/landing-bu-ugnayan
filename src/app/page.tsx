@@ -23,6 +23,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Tilt } from "@/components/ui/tilt";
+import { TextShimmer } from "@/components/ui/text-shimmer";
+import { InView } from "@/components/ui/in-view";
+import AnimatedContent from "@/components/AnimatedContent";
 
 export default function Home() {
   const { resolvedTheme } = useTheme();
@@ -33,20 +37,16 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  const screenshots = mounted && resolvedTheme === "dark"
-    ? ["/bg1-dark.png", "/bg2-dark.png", "/bg3-dark.png", "/bg4-dark.png"]
-    : ["/bg1.png", "/bg2.png", "/bg3.png", "/bg4.png"];
+  const screenshots = ["/bg1-dark.png", "/bg2-dark.png", "/bg3-dark.png", "/bg4-dark.png"];
 
-  const mobileScreenshots = mounted && resolvedTheme === "dark"
-    ? ["/mobile1-dark.jpg", "/mobile2-dark.jpg", "/mobile3-dark.jpg", "/mobile4-dark.jpg"]
-    : ["/mobile1.jpg", "/mobile2.jpg", "/mobile3.jpg", "/mobile4.jpg"];
+  const mobileScreenshots = ["/mobile1-dark.jpg", "/mobile2-dark.jpg", "/mobile3-dark.jpg", "/mobile4-dark.jpg"];
 
   const roleImages: Record<string, string> = {
-    students: mounted && resolvedTheme === "dark" ? "/students-dark.png" : "/students.png",
-    organizations: mounted && resolvedTheme === "dark" ? "/organizations-dark.png" : "/organizations.png",
-    advisers: mounted && resolvedTheme === "dark" ? "/advisers-dark.png" : "/advisers.png",
-    approvers: mounted && resolvedTheme === "dark" ? "/approvers-dark.png" : "/approvers.png",
-    admins: mounted && resolvedTheme === "dark" ? "/admins-dark.png" : "/admins.png",
+    students: "/students-dark.png",
+    organizations: "/organizations-dark.png",
+    advisers: "/advisers-dark.png",
+    approvers: "/approvers-dark.png",
+    admins: "/admins-dark.png",
   };
 
   return (
@@ -56,20 +56,40 @@ export default function Home() {
         <section className="relative overflow-hidden" style={{ minHeight: '600px' }}>
           {/* Squares Background */}
           {mounted && resolvedTheme === "dark" && (
-            <div className="hidden lg:block absolute top-0 left-0 w-full h-[600px] md:h-full md:inset-0 -z-10">
-              <Squares
-                speed={0.2}
-                squareSize={40}
-                direction="down"
-                borderColor="#13338f"
-                hoverFillColor="#222222"
-              />
-            </div>
+            <InView
+              viewOptions={{ once: true, margin: '0px' }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { duration: 1.5, ease: 'easeOut' } },
+              }}
+            >
+              <div className="hidden lg:block absolute top-0 left-0 w-full h-[600px] md:h-full md:inset-0 -z-10">
+                <Squares
+                  speed={0.2}
+                  squareSize={40}
+                  direction="down"
+                  borderColor="#13338f"
+                  hoverFillColor="#222222"
+                />
+              </div>
+            </InView>
           )}
 
-          <div className="relative flex flex-col gap-12 items-center max-w-7xl mx-auto py-10 lg:pt-25 lg:pb-15">
-            {/* Top - Text Content */}
-            <div className="px-4 sm:px-8 md:px-16 lg:px-60 relative z-20 space-y-8 text-center w-full">
+          <AnimatedContent
+            distance={150}
+            direction="vertical"
+            reverse={false}
+            duration={1.2}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
+            scale={0.95}
+            threshold={0.2}
+            delay={0.2}
+          >
+            <div className="relative flex flex-col gap-12 items-center max-w-7xl mx-auto py-10 lg:pt-25 lg:pb-15">
+              {/* Top - Text Content */}
+              <div className="px-4 sm:px-8 md:px-16 lg:px-60 relative z-20 space-y-8 text-center w-full">
 
               {/* Black fade background */}
               {mounted && resolvedTheme === "dark" && (
@@ -77,7 +97,7 @@ export default function Home() {
               )}
               
               <div className="space-y-4">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
                 <span className="text-primary">BU-Ugnayan: </span>A Virtual Space for Bicol University Student Organizations
                 </h1>
                 <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
@@ -116,7 +136,7 @@ export default function Home() {
             </div>
 
           {/* Bottom - Image Carousel */}
-          <div className="z-20 relative w-full max-w-4xl">
+            <div className="z-20 relative w-full max-w-4xl">
             <Carousel className="w-full">
               <CarouselContent>
                 {screenshots.map((screenshot, index) => (
@@ -141,24 +161,47 @@ export default function Home() {
             </Carousel>
           </div>
           </div>
+          </AnimatedContent>
         </section>
 
         {/* Problem vs Solution Section */}
-        <section id="about" className="py-10 lg:py-30">
+        <section id="about" className="py-10 lg:py-25">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl  font-bold tracking-tight mb-4">
-                A Better Way to <span className="text-primary">Manage</span>
-              </h2>
-              <p className="text-lg text-muted-foreground lg:px-50">
-                See how BU-Ugnayan transforms organizational management
-                Leave the frustrations of manual processes behind.
-              </p>
-            </div>
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
+            >
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-4xl  font-bold tracking-tight mb-4">
+                  A Better Way to <span className="text-primary">Manage</span>
+                </h2>
+                <p className="text-lg text-muted-foreground lg:px-50">
+                  See how BU-Ugnayan transforms organizational management
+                  Leave the frustrations of manual processes behind.
+                </p>
+              </div>
+            </InView>
 
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
-              {/* The Problem */}
-              <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 99, 71, 0.2)">
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+              }}
+            >
+              <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+                {/* The Problem */}
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, x: -50 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+                  }}
+                >
+                  <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 99, 71, 0.2)">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-lg bg-destructive/10 flex items-center justify-center">
@@ -199,8 +242,16 @@ export default function Home() {
                   </ul>
                 </div>
               </SpotlightCard>
+                </InView>
 
               {/* The Solution */}
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, x: 50 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+                  }}
+                >
               <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(59, 130, 246, 0.2)">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -242,23 +293,40 @@ export default function Home() {
                   </ul>
                 </div>
               </SpotlightCard>
-            </div>
+                </InView>
+              </div>
+            </InView>
           </div>
         </section>
 
         {/* Key Features Section */}
-        <section id="features" className="py-10 lg:py-30">
+        <section id="features" className="py-10 lg:py-25">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl  font-bold tracking-tight mb-4">
-                Everything You Need in <span className="text-primary">One Platform</span>
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Powerful features designed to simplify every aspect of organization management
-              </p>
-            </div>
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
+            >
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-4xl  font-bold tracking-tight mb-4">
+                  Everything You Need in <span className="text-primary">One Platform</span>
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Powerful features designed to simplify every aspect of organization management
+                </p>
+              </div>
+            </InView>
 
-            <InfiniteSlider speedOnHover={20} gap={24}>
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+              }}
+            >
+              <InfiniteSlider speedOnHover={20} gap={24}>
               {/* Event Management */}
               <Card className="border-border bg-card/80 w-[320px] flex-shrink-0 transition-all duration-300 hover:border-blue-500">
                 <CardHeader>
@@ -413,15 +481,30 @@ export default function Home() {
                 </CardContent>
               </Card>
             </InfiniteSlider>
+            </InView>
           </div>
         </section>
 
         {/* Mobile Accessibility Section */}
-        <section id="mobile" className="py-10 lg:py-30">
+        <section id="mobile" className="py-10 lg:py-25">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
+              }}
+            >
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left: Text Content */}
-              <div className="space-y-8">
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, x: -50 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+                  }}
+                >
+                  <div className="space-y-8">
                 <div className="space-y-4">
                   <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
                     Your Organization in <span className="text-primary">Your Pocket</span>
@@ -496,10 +579,18 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </div>
+                </div>
+                </InView>
 
               {/* Right: Mobile Phone Mockup */}
-              <div className="flex justify-center lg:justify-end">
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, x: 50 },
+                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+                  }}
+                >
+                  <div className="flex justify-center lg:justify-end">
                 <div className="relative w-full max-w-[280px]">
                   <Carousel className="w-full">
                     <CarouselContent>
@@ -526,26 +617,43 @@ export default function Home() {
                     </div>
                   </Carousel>
                 </div>
+                </div>
+                </InView>
               </div>
-            </div>
+            </InView>
           </div>
         </section>
 
         {/* Built for Every Role Section */}
-        <section id="roles" className="py-10 lg:py-30">
+        <section id="roles" className="py-10 lg:py-25">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-                Built for <span className="text-primary">Every Role</span>
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Whether you're a student leader, a faculty adviser, or an administrator, BU-Ugnayan is designed to make your specific role easier.
-              </p>
-            </div>
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
+            >
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                  Built for <span className="text-primary">Every Role</span>
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  Whether you're a student leader, a faculty adviser, or an administrator, BU-Ugnayan is designed to make your specific role easier.
+                </p>
+              </div>
+            </InView>
 
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
-              {/* Left: Accordion */}
-              <div>
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
+            >
+              <div className="grid lg:grid-cols-2 gap-12 items-start">
+                {/* Left: Accordion */}
+                <div>
                 <Accordion 
                   type="single" 
                   collapsible 
@@ -603,10 +711,10 @@ export default function Home() {
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
-              </div>
+                </div>
 
-              {/* Right: Image Holder */}
-              <div className="lg:sticky lg:top-8">
+                {/* Right: Image Holder */}
+                <div className="lg:sticky lg:top-8">
                 <AspectRatio ratio={16 / 9} className="rounded-lg overflow-hidden border bg-muted shadow-2xl">
                   <Image
                     src={roleImages[selectedRole] || roleImages.students}
@@ -616,17 +724,208 @@ export default function Home() {
                     className="object-cover transition-opacity duration-300"
                   />
                 </AspectRatio>
+                </div>
               </div>
-            </div>
+            </InView>
+          </div>
+        </section>
+
+        {/* Meet the Developers Section */}
+        <section id="team" className="py-10 lg:py-20">
+          <div className=" ">
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
+            >
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                  Meet the <span className="text-primary">Developers</span>
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  The passionate team behind BU-Ugnayan
+                </p>
+              </div>
+            </InView>
+
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+              }}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 justify-items-center">
+
+              {/* Developer 1 */}
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+                  }}
+                >
+                  <Tilt rotationFactor={15} isRevese className="h-full">
+                  <div
+                    style={{
+                      borderRadius: '12px',
+                    }}
+                    className='flex w-full h-full max-w-[270px] flex-col overflow-hidden border border-border bg-white dark:border-border dark:bg-border/50'
+                  >
+                    <img
+                      src='/Gñilo, Jela Mae N..jpg'
+                      alt='Gñilo, Jela Mae N.'
+                      className='aspect-square w-full object-cover flex-shrink-0'
+                    />
+                    <div className='p-5  text-center space-y-1 flex-grow flex flex-col justify-center'>
+                      <h1 className=' text-sm font-semibold leading-snug text-zinc-950 dark:text-zinc-50'>
+                        Jela Mae Gñilo
+                      </h1>
+                      <p className=' text-sm text-primary font-medium'>Front-end Developer</p>
+                    </div>
+                  </div>
+                </Tilt>
+                </InView>
+
+              {/* Developer 2 */}
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.1 } },
+                  }}
+                >
+                  <Tilt rotationFactor={15} isRevese className="h-full">
+                  <div
+                    style={{
+                      borderRadius: '12px',
+                    }}
+                    className='flex w-full h-full max-w-[270px] flex-col overflow-hidden border border-border bg-white dark:border-border dark:bg-border/50'
+                  >
+                    <img
+                      src='/Lleva, Manuel Andrei L..jpg'
+                      alt='Lleva, Manuel Andrei L.'
+                      className='aspect-square w-full object-cover flex-shrink-0'
+                    />
+                    <div className='p-5 text-center space-y-1 flex-grow flex flex-col justify-center'>
+                      <h1 className=' text-sm font-semibold leading-snug text-zinc-950 dark:text-zinc-50'>
+                        Manuel Andrei Lleva
+                      </h1>
+                      <p className=' text-sm text-primary font-medium'>Front-end Developer</p>
+                    </div>
+                  </div>
+                </Tilt>
+                </InView>
+
+              {/* Developer 3 */}
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
+                  }}
+                >
+                  <Tilt rotationFactor={15} isRevese className="h-full">
+                  <div
+                    style={{
+                      borderRadius: '12px',
+                    }}
+                    className='flex w-full h-full max-w-[270px] flex-col overflow-hidden border border-border bg-white dark:border-border dark:bg-border/50'
+                  >
+                    <img
+                      src='/Matamorosa, Janine Ishe M..jpg'
+                      alt='Matamorosa, Janine Ishe M.'
+                      className='aspect-square w-full object-cover flex-shrink-0'
+                    />
+                    <div className='p-5 text-center space-y-1 flex-grow flex flex-col justify-center'>
+                      <h1 className=' text-sm font-semibold leading-snug text-zinc-950 dark:text-zinc-50'>
+                        Janine Ishe Matamorosa
+                      </h1>
+                      <p className=' text-sm text-primary font-medium'>Back-end Developer</p>
+                    </div>
+                  </div>
+                </Tilt>
+                </InView>
+
+              {/* Developer 4 */}
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.3 } },
+                  }}
+                >
+                  <Tilt rotationFactor={15} isRevese className="h-full">
+                  <div
+                    style={{
+                      borderRadius: '12px',
+                    }}
+                    className='flex w-full h-full max-w-[270px] flex-col overflow-hidden border border-border bg-white dark:border-border dark:bg-border/50'
+                  >
+                    <img
+                      src='/Obligacion, Rouen R..jpg'
+                      alt='Obligacion, Rouen R.'
+                      className='aspect-square w-full object-cover flex-shrink-0'
+                    />
+                    <div className='p-5 text-center space-y-1 flex-grow flex flex-col justify-center'>
+                      <h1 className=' text-sm font-semibold leading-snug text-zinc-950 dark:text-zinc-50'>
+                        Rouen R. Obligacion
+                      </h1>
+                      <p className=' text-sm text-primary font-medium'>Lead Developer</p>
+                    </div>
+                  </div>
+                </Tilt>
+                </InView>
+
+              {/* Developer 5 */}
+                <InView
+                  viewOptions={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay: 0.4 } },
+                  }}
+                >
+                  <Tilt rotationFactor={15} isRevese className="h-full">
+                  <div
+                    style={{
+                      borderRadius: '12px',
+                    }}
+                    className='flex w-full h-full max-w-[270px] flex-col overflow-hidden border border-border bg-white dark:border-border dark:bg-border/50'
+                  >
+                    <img
+                      src='https://i.redd.it/3mxdd5sdeise1.jpeg'
+                      alt='Palomillo, Vinz Russel Q.'
+                      className='aspect-square w-full object-cover flex-shrink-0'
+                    />
+                    <div className='p-5 text-center space-y-1 flex-grow flex flex-col justify-center'>
+                      <h1 className=' text-sm font-semibold leading-snug text-zinc-950 dark:text-zinc-50'>
+                        Vinz Russel Palomillo
+                      </h1>
+                      <p className=' text-sm text-primary font-medium'>Database Manager</p>
+                    </div>
+                  </div>
+                </Tilt>
+                </InView>
+              </div>
+            </InView>
           </div>
         </section>
 
         {/* Call to Action Section */}
         <section className="py-20">
           <div className="">
-            <Card className="relative overflow-hidden  shadow-2xl min-h-[400px]">
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, scale: 0.95 },
+                visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } },
+              }}
+            >
+              <Card className="relative overflow-hidden  shadow-2xl min-h-[400px]">
               {/* Silk Background */}
-              {mounted && (
+              {mounted && ( 
                 <div className="absolute inset-0 z-0 opacity-40 w-full h-full pointer-events-none">
                   <Silk
                     speed={5}
@@ -668,6 +967,7 @@ export default function Home() {
                 </div>
               </CardContent>
             </Card>
+            </InView>
           </div>
         </section>
       </main>
@@ -681,7 +981,7 @@ export default function Home() {
               <div className="space-y-4">
                 <h2 className="text-2xl font-bold">BU-Ugnayan</h2>
                 <p className="text-primary-foreground/80 text-sm leading-relaxed">
-                  Unified Organization Management for Bicol University. Streamlining collaboration and productivity.
+                  A Virtual Space for Bicol University Student Organizations
                 </p>
               </div>
 
