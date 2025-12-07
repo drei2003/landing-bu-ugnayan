@@ -38,7 +38,7 @@ export function InView({
 
   const [isViewed, setIsViewed] = useState(false)
 
-  const MotionComponent = motion[as as keyof typeof motion] as typeof as;
+  const MotionComponent = motion[as as keyof typeof motion] as any;
 
   return (
     <MotionComponent
