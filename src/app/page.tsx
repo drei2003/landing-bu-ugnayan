@@ -627,6 +627,8 @@ export default function Home() {
         {/* Built for Every Role Section */}
         <section id="roles" className="py-10 lg:py-25">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
               variants={{
