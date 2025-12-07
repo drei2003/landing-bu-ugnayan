@@ -36,6 +36,7 @@
 		"@types/node": "^20",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
+		"@types/three": "^0.181.0",
 		"jsrepo": "^3.0.8",
 		"shadcn": "^3.5.1",
 		"tailwindcss": "^4",
