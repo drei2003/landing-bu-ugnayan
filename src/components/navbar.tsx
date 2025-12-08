@@ -67,7 +67,12 @@ export function Navbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                    <Link href="#roles">Users</Link>
+                    <Link href="#roles">Roles</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                    <Link href="#team">Team</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
@@ -225,6 +230,13 @@ export function Navbar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Roles
+              </Link>
+              <Link
+                href="#team"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-accent transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Team
               </Link>
             </div>
           </div>

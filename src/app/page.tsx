@@ -27,6 +27,8 @@ import { Tilt } from "@/components/ui/tilt";
 import { TextShimmer } from "@/components/ui/text-shimmer";
 import { InView } from "@/components/ui/in-view";
 import AnimatedContent from "@/components/AnimatedContent";
+import Masonry from "@/components/Masonry";
+import GradualBlur from "@/components/GradualBlur";
 
 export default function Home() {
   const { resolvedTheme } = useTheme();
@@ -49,31 +51,162 @@ export default function Home() {
     admins: "/admins-dark.png",
   };
 
+  const demoItems = [
+    {
+      id: "1",
+      img: "/demo/received_4270606643172918.jpeg",
+      url: "#",
+      height: 700,
+    },
+    {
+      id: "2",
+      img: "/demo/received_4210923805832516.jpeg",
+      url: "#",
+      height: 600,
+    },
+    {
+      id: "3",
+      img: "/demo/received_4138266729774201.jpeg",
+      url: "#",
+      height: 500,
+    },
+    {
+      id: "4",
+      img: "/demo/received_1356486729363377.jpeg",
+      url: "#",
+      height: 650,
+    },
+    {
+      id: "5",
+      img: "/demo/received_1341262944817537.jpeg",
+      url: "#",
+      height: 550,
+    },
+    {
+      id: "6",
+      img: "/demo/received_881116984249853.jpeg",
+      url: "#",
+      height: 600,
+    },
+    {
+      id: "7",
+      img: "/demo/received_825131696988465.jpeg",
+      url: "#",
+      height: 500,
+    },
+    {
+      id: "8",
+      img: "/demo/received_735181432310235.jpeg",
+      url: "#",
+      height: 700,
+    },
+    {
+      id: "9",
+      img: "/demo/received_705452305951812.jpeg",
+      url: "#",
+      height: 550,
+    },
+    {
+      id: "10",
+      img: "/demo/received_703488185788241.jpeg",
+      url: "#",
+      height: 600,
+    },
+    {
+      id: "11",
+      img: "/demo/received_4351793578473957.jpeg",
+      url: "#",
+      height: 450,
+    },
+    {
+      id: "12",
+      img: "/demo/received_2619948818384682.jpeg",
+      url: "#",
+      height: 650,
+    },
+    {
+      id: "13",
+      img: "/demo/received_2214245062430072.jpeg",
+      url: "#",
+      height: 600,
+    },
+    {
+      id: "14",
+      img: "/demo/received_1760802747951429.jpeg",
+      url: "#",
+      height: 550,
+    },
+    {
+      id: "15",
+      img: "/demo/received_1602396217595637.jpeg",
+      url: "#",
+      height: 700,
+    },
+    {
+      id: "16",
+      img: "/demo/received_1596133381528826.jpeg",
+      url: "#",
+      height: 450,
+    },
+    {
+      id: "17",
+      img: "/demo/received_1523211672133850.jpeg",
+      url: "#",
+      height: 600,
+    },
+    {
+      id: "18",
+      img: "/demo/received_1364481248017398.jpeg",
+      url: "#",
+      height: 550,
+    },
+    {
+      id: "19",
+      img: "/demo/received_1345476710404753.jpeg",
+      url: "#",
+      height: 650,
+    },
+    {
+      id: "20",
+      img: "/demo/received_1235834578591878.jpeg",
+      url: "#",
+      height: 500,
+    },
+    {
+      id: "21",
+      img: "/demo/received_1184706507184479.jpeg",
+      url: "#",
+      height: 700,
+    },
+    {
+      id: "22",
+      img: "/demo/received_1184240499755833.jpeg",
+      url: "#",
+      height: 400,
+    },
+    {
+      id: "23",
+      img: "/demo/received_1177533577284906.jpeg",
+      url: "#",
+      height: 600,
+    },
+  ];
+
   return (
     <div className="relative">
       <main className="container mx-auto px-6 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <section className="relative overflow-hidden" style={{ minHeight: '600px' }}>
-          {/* Squares Background */}
-          {mounted && resolvedTheme === "dark" && (
-            <InView
-              viewOptions={{ once: true, margin: '0px' }}
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { duration: 1.5, ease: 'easeOut' } },
-              }}
-            >
-              <div className="hidden lg:block absolute top-0 left-0 w-full h-[600px] md:h-full md:inset-0 -z-10">
-                <Squares
-                  speed={0.2}
-                  squareSize={40}
-                  direction="down"
-                  borderColor="#13338f"
-                  hoverFillColor="#222222"
-                />
-              </div>
-            </InView>
-          )}
+        <section className="relative overflow-visible" style={{ minHeight: '600px' }}>
+          {/* Gradient SVG Background - Overflows hero section */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200%] h-[1000px] -z-10 pointer-events-none">
+            <Image
+              src="/gradient.svg"
+              alt=""
+              fill
+              className="opacity-60 object-cover"
+              priority
+            />
+          </div>
 
           <AnimatedContent
             distance={150}
@@ -90,11 +223,6 @@ export default function Home() {
             <div className="relative flex flex-col gap-12 items-center max-w-7xl mx-auto py-10 lg:pt-25 lg:pb-15">
               {/* Top - Text Content */}
               <div className="px-4 sm:px-8 md:px-16 lg:px-60 relative z-20 space-y-8 text-center w-full">
-
-              {/* Black fade background */}
-              {mounted && resolvedTheme === "dark" && (
-                <div className="hidden sm:block absolute -inset-4 sm:-inset-6 lg:inset-0 -z-10 bg-gradient-to-b from-black/30 via-black/40 to-transparent rounded-3xl blur-2xl"></div>
-              )}
               
               <div className="space-y-4">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
@@ -124,19 +252,18 @@ export default function Home() {
             </div>
 
 
-
             {/* LaserFlow overlay positioned on top - only on dark mode desktop */}
-            <div className="hidden dark:lg:block absolute top-25 xl:top-19 bottom-0 -left-5 right-40 pointer-events-none z-10 rounded-lg overflow-hidden">
+            <div className="hidden dark:lg:block absolute top-50 xl:top-19 bottom-0 -left-5 right-40 pointer-events-none z-10 rounded-lg overflow-hidden">
               <LaserFlow
                 color="#3b82f6"
-                fogIntensity={0.3}
-                wispDensity={0.9}
+                fogIntensity={0.5}
+                wispDensity={0.10}
                 verticalBeamOffset={0.10}
               />
             </div>
 
           {/* Bottom - Image Carousel */}
-            <div className="z-20 relative w-full max-w-4xl">
+            <div className="z-20 relative w-full max-w-5xl mt-5 xl:mt-11">
             <Carousel className="w-full">
               <CarouselContent>
                 {screenshots.map((screenshot, index) => (
@@ -146,7 +273,7 @@ export default function Home() {
                         src={screenshot}
                         alt={`Screenshot ${index + 1}`}
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1000px"
+                        sizes="(max-width: 768px) 150vw, (max-width: 1200px) 90vw, 1200px"
                         className="object-contain"
                         priority={index === 0}
                       />
@@ -165,7 +292,7 @@ export default function Home() {
         </section>
 
         {/* Problem vs Solution Section */}
-        <section id="about" className="py-10 lg:py-25">
+        <section id="about" className="py-10 lg:pt-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -300,7 +427,7 @@ export default function Home() {
         </section>
 
         {/* Key Features Section */}
-        <section id="features" className="py-10 lg:py-25">
+        <section id="features" className="py-10 lg:pt-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -326,7 +453,11 @@ export default function Home() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
               }}
             >
-              <InfiniteSlider speedOnHover={20} gap={24}>
+              <div className="relative overflow-hidden">
+                <div className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none">
+                  <GradualBlur position="left" strength={3} width="4rem" />
+                </div>
+                <InfiniteSlider speedOnHover={20} gap={24}>
               {/* Event Management */}
               <Card className="border-border bg-card/80 w-[320px] flex-shrink-0 transition-all duration-300 hover:border-blue-500">
                 <CardHeader>
@@ -481,12 +612,16 @@ export default function Home() {
                 </CardContent>
               </Card>
             </InfiniteSlider>
+                <div className="absolute right-0 top-0 bottom-0 z-10 pointer-events-none">
+                  <GradualBlur position="right" strength={3} width="4rem" />
+                </div>
+              </div>
             </InView>
           </div>
         </section>
 
         {/* Mobile Accessibility Section */}
-        <section id="mobile" className="py-10 lg:py-25">
+        <section id="mobile" className="py-10 lg:pt-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -625,7 +760,7 @@ export default function Home() {
         </section>
 
         {/* Built for Every Role Section */}
-        <section id="roles" className="py-10 lg:py-25">
+        <section id="roles" className="py-10 lg:pt-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             
@@ -732,8 +867,55 @@ export default function Home() {
           </div>
         </section>
 
+        {/* See BU-Ugnayan in Action Section */}
+        <section id="demo" className="py-10 lg:pt-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 50 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+              }}
+            >
+              <div className="text-center mb-16">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                  See BU-Ugnayan in <span className="text-primary">Action</span>
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  A glimpse into our system's live capabilities and the successful demos conducted with student organizations
+                </p>
+              </div>
+            </InView>
+
+            <InView
+              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+              }}
+            >
+              <div className="relative h-[800px] lg:h-[1200px] overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                <div className="sticky top-0 z-10 pointer-events-none">
+                  <GradualBlur position="top" strength={1} height="1rem" />
+                </div>
+                <Masonry
+                  items={demoItems}
+                  ease="power3.out"
+                  duration={0.6}
+                  stagger={0.05}
+                  animateFrom="bottom"
+                  scaleOnHover={true}
+                  hoverScale={0.95}
+                  blurToFocus={true}
+                  colorShiftOnHover={false}
+                />
+              </div>
+            </InView>
+          </div>
+        </section>
+
         {/* Meet the Developers Section */}
-        <section id="team" className="py-10 lg:py-20">
+        <section id="team" className="py-10 lg:pt-40">
           <div className=" ">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -897,7 +1079,7 @@ export default function Home() {
                     className='flex w-full h-full max-w-[270px] flex-col overflow-hidden border border-border bg-white dark:border-border dark:bg-border/50'
                   >
                     <img
-                      src='https://i.redd.it/3mxdd5sdeise1.jpeg'
+                      src='/Vinz Russel Palomillo.jpg'
                       alt='Palomillo, Vinz Russel Q.'
                       className='aspect-square w-full object-cover flex-shrink-0'
                     />
@@ -916,7 +1098,7 @@ export default function Home() {
         </section>
 
         {/* Call to Action Section */}
-        <section className="py-20">
+        <section className="py-20 ">
           <div className="">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
