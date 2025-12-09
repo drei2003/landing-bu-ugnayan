@@ -208,19 +208,21 @@ export default function Home() {
 
   return (
     <div className="relative">
-      <main className="container mx-auto px-6 sm:px-6 lg:px-8">
+      <main>
         {/* Hero Section */}
-        <section className="relative overflow-visible" style={{ minHeight: '600px' }}>
-          {/* Gradient SVG Background - Overflows hero section */}
-            <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[200%] h-[1000px] -z-10 pointer-events-none">
-            <Image
-              src="/gradient.svg"
-              alt=""
-              fill
-              className="opacity-60 object-cover"
-              priority
-            />
+        <section className="relative overflow-hidden w-full ">
+          {/* Gradient SVG Background */}
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[800px]">
+              <Image
+                src="/gradient.svg"
+                alt=""
+                fill
+                className="object-cover opacity-60"
+                priority
+              />
             </div>
+          </div>
 
           <AnimatedContent
             distance={150}
@@ -234,7 +236,7 @@ export default function Home() {
             threshold={0.2}
             delay={0.2}
           >
-            <div className="relative flex flex-col gap-12 items-center max-w-7xl mx-auto py-10 lg:pt-25 lg:pb-15">
+            <div className="relative flex flex-col gap-12 items-center max-w-7xl mx-auto py-10 lg:pt-25 lg:pb-15 px-6 sm:px-6 lg:px-8">
               {/* Top - Text Content */}
               <div className="px-4 sm:px-8 md:px-16 xl:px-60 relative z-20 space-y-8 text-center w-full">
               
@@ -305,7 +307,7 @@ export default function Home() {
         </section>
 
         {/* About BU-Ugnayan Section */}
-        <section id="about" className="py-10 lg:pt-40">
+        <section id="about" className="py-10 lg:pt-40 container mx-auto px-6 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* About Header */}
             <InView
@@ -441,7 +443,7 @@ export default function Home() {
         </section>
 
         {/* Key Features Section */}
-        <section id="features" className="py-10 lg:pt-40">
+        <section id="features" className="py-10 lg:pt-40 container mx-auto px-6 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -454,7 +456,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl  font-bold tracking-tight mb-4">
                   Everything You Need in <span className="text-primary">One Platform</span>
                 </h2>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-sm sm:text-md lg:text-lg text-muted-foreground">
                   Powerful features designed to simplify every aspect of organization management
                 </p>
               </div>
@@ -793,7 +795,7 @@ export default function Home() {
         </section>
 
           {/* Mobile Accessibility Section */}
-          <section id="mobile" className="py-10 lg:pt-40">
+          <section id="mobile" className="py-10 lg:pt-40 container mx-auto px-6 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <InView
                 viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -816,7 +818,7 @@ export default function Home() {
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
                       Your Organization in <span className="text-primary">Your Pocket</span>
                     </h2>
-                    <p className="text-lg text-muted-foreground">
+                    <p className="text-sm sm:text-md lg:text-lg text-muted-foreground">
                       Stay connected wherever you are. BU-Ugnayan is fully responsive and optimized for mobile devices, ensuring you never miss an update.
                     </p>
                   </div>
@@ -932,7 +934,7 @@ export default function Home() {
           </section>
 
         {/* Built for Every Role Section */}
-        <section id="roles" className="py-10 lg:pt-40">
+        <section id="roles" className="py-10 lg:pt-40 container mx-auto px-6 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             
@@ -947,7 +949,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                   Built for <span className="text-primary">Every Role</span>
                 </h2>
-                <p className="text-lg text-muted-foreground lg:px-20">
+                <p className="text-sm sm:text-md lg:text-lg text-muted-foreground lg:px-20">
                   Whether you're a student, org officer, a faculty adviser, or an administrator, BU-Ugnayan is designed to make your specific role easier.
                 </p>
               </div>
@@ -1040,7 +1042,7 @@ export default function Home() {
         </section>
 
         {/* See BU-Ugnayan in Action Section */}
-        <section id="demo" className="py-10 lg:pt-40">
+        <section id="demo" className="py-10 lg:pt-40 container mx-auto px-6 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -1053,7 +1055,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                   See BU-Ugnayan in <span className="text-primary">Action</span>
                 </h2>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-sm sm:text-md lg:text-lg text-muted-foreground">
                   A glimpse into our system's live capabilities and the successful demos conducted with student organizations
                 </p>
               </div>
@@ -1087,7 +1089,7 @@ export default function Home() {
         </section>
 
         {/* Meet the Developers Section */}
-        <section id="team" className="py-10 lg:pt-40">
+        <section id="team" className="py-10 lg:pt-40 container mx-auto px-6 sm:px-6 lg:px-8">
           <div className=" ">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
@@ -1100,7 +1102,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                   Meet the <span className="text-primary">Developers</span>
                 </h2>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-sm sm:text-md lg:text-lg text-muted-foreground">
                   The passionate team behind BU-Ugnayan
                 </p>
               </div>
@@ -1270,7 +1272,7 @@ export default function Home() {
         </section>
 
         {/* Call to Action Section */}
-        <section className="py-20 ">
+        <section className="py-20 container mx-auto px-6 sm:px-6 lg:px-8">
           <div className="">
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
