@@ -213,7 +213,7 @@ export default function Home() {
         <section className="relative overflow-hidden w-full ">
           {/* Gradient SVG Background */}
           <div className="absolute inset-0 -z-10 pointer-events-none">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140%] h-[800px]">
+            <div className="absolute top-0 left-1/2 -translate-x-[55%] w-[140%] h-[800px]">
               <Image
                 src="/gradient.svg"
                 alt=""
