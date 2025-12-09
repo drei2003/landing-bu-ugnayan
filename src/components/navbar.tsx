@@ -67,7 +67,7 @@ export function Navbar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                    <Link href="#roles">Roles</Link>
+                    <Link href="#roles">Our Users</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -111,7 +111,7 @@ export function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <a 
-                    href="https://bu-ugnayan.org/login"
+                    href="https://bu-ugnayan.org/system_admin/login"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cursor-pointer flex items-center gap-2"

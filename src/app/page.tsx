@@ -34,10 +34,24 @@ export default function Home() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [selectedRole, setSelectedRole] = useState("students");
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const screenshots = ["/bg1-dark.png", "/bg2-dark.png", "/bg3-dark.png", "/bg4-dark.png"];
 
@@ -198,7 +212,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative overflow-visible" style={{ minHeight: '600px' }}>
           {/* Gradient SVG Background - Overflows hero section */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[200%] h-[1000px] -z-10 pointer-events-none">
+            <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[200%] h-[1000px] -z-10 pointer-events-none">
             <Image
               src="/gradient.svg"
               alt=""
@@ -206,7 +220,7 @@ export default function Home() {
               className="opacity-60 object-cover"
               priority
             />
-          </div>
+            </div>
 
           <AnimatedContent
             distance={150}
@@ -222,7 +236,7 @@ export default function Home() {
           >
             <div className="relative flex flex-col gap-12 items-center max-w-7xl mx-auto py-10 lg:pt-25 lg:pb-15">
               {/* Top - Text Content */}
-              <div className="px-4 sm:px-8 md:px-16 lg:px-60 relative z-20 space-y-8 text-center w-full">
+              <div className="px-4 sm:px-8 md:px-16 xl:px-60 relative z-20 space-y-8 text-center w-full">
               
               <div className="space-y-4">
                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold ">
@@ -237,10 +251,10 @@ export default function Home() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-              href="#signup"
+              href="#roles"
               className="inline-flex h-10 items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
               >
-              Get Started
+              Our Users
               </a>
               <a
               href="#features"
@@ -251,9 +265,8 @@ export default function Home() {
             </div>
             </div>
 
-
             {/* LaserFlow overlay positioned on top - only on dark mode desktop */}
-            <div className="hidden dark:lg:block absolute top-50 xl:top-19 bottom-0 -left-5 right-40 pointer-events-none z-10 rounded-lg overflow-hidden">
+            <div className="hidden dark:sm:block absolute sm:top-32 sm:right-20 md:top-27 lg:top-19  bottom-0 -left-5 lg:-left-28 right-40 pointer-events-none z-10 rounded-lg overflow-hidden">
               <LaserFlow
                 color="#3b82f6"
                 fogIntensity={0.5}
@@ -291,9 +304,10 @@ export default function Home() {
           </AnimatedContent>
         </section>
 
-        {/* Problem vs Solution Section */}
+        {/* About BU-Ugnayan Section */}
         <section id="about" className="py-10 lg:pt-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* About Header */}
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
               variants={{
@@ -302,16 +316,16 @@ export default function Home() {
               }}
             >
               <div className="text-center mb-16">
-                <h2 className="text-3xl sm:text-4xl  font-bold tracking-tight mb-4">
-                  A Better Way to <span className="text-primary">Manage</span>
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                  About <span className="text-primary">BU-Ugnayan</span>
                 </h2>
-                <p className="text-lg text-muted-foreground lg:px-50">
-                  See how BU-Ugnayan transforms organizational management
-                  Leave the frustrations of manual processes behind.
+                <p className="text-sm sm:text-md lg:text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+                  BU-Ugnayan is a centralized student organization management system designed to bridge the gap between students, faculty, and the administration. By replacing outdated manual processes with a unified digital ecosystem, we aim to foster a more efficient, transparent, and connected university community.
                 </p>
               </div>
             </InView>
 
+            {/* Problem vs Solution Cards */}
             <InView
               viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
               variants={{
@@ -328,50 +342,50 @@ export default function Home() {
                     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
                   }}
                 >
-                  <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(255, 99, 71, 0.2)">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-destructive/10 flex items-center justify-center">
-                      <svg className="h-5 w-5 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                      </svg>
+                  <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(255, 99, 71, 0.2)">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-destructive/10 flex items-center justify-center">
+                          <svg className="h-5 w-5 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-xl font-semibold">The Problem</h3>
+                      </div>
+                      <p className="text-base leading-relaxed text-muted-foreground">
+                        University organizations currently face inefficient manual workflows, fragmented data storage, and unreliable communication channels.
+                      </p>
+                      <ul className="space-y-4 pt-4">
+                        <li className="flex items-start gap-3">
+                          <div className="h-5 w-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="h-3 w-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </div>
+                          <span className="text-sm">Event proposals face delays moving between physical signatories, slowing down approval times.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="h-5 w-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="h-3 w-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </div>
+                          <span className="text-sm">Organizational records and reports are scattered across personal devices, making retrieval and auditing difficult.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="h-5 w-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="h-3 w-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </div>
+                          <span className="text-sm">Critical updates and announcements are easily missed by the student body due to disjointed communication platforms.</span>
+                        </li>
+                      </ul>
                     </div>
-                    <h3 className="text-xl font-semibold">The Problem</h3>
-                  </div>
-                  <p className="text-base leading-relaxed text-muted-foreground">
-                    Lost paperwork, delayed signatures, and scattered communication channels.
-                  </p>
-                  <ul className="space-y-4 pt-4">
-                    <li className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg className="h-3 w-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </div>
-                      <span className="text-sm">Physical proposals get stuck waiting for signatures.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg className="h-3 w-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </div>
-                      <span className="text-sm">Vital files get lost in personal drives and disjointed folders.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg className="h-3 w-3 text-destructive" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </div>
-                      <span className="text-sm">Important announcements get lost in the noise.</span>
-                    </li>
-                  </ul>
-                </div>
-              </SpotlightCard>
+                  </SpotlightCard>
                 </InView>
 
-              {/* The Solution */}
+                {/* The Solution */}
                 <InView
                   viewOptions={{ once: true }}
                   variants={{
@@ -379,47 +393,47 @@ export default function Home() {
                     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
                   }}
                 >
-              <SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(59, 130, 246, 0.2)">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                  <SpotlightCard className="custom-spotlight-card h-full" spotlightColor="rgba(59, 130, 246, 0.2)">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <h3 className="text-xl font-semibold">The Solution</h3>
+                      </div>
+                      <p className="text-base leading-relaxed text-muted-foreground">
+                        We provide a unified digital ecosystem that streamlines approvals, secures archives, and connects the entire university community.
+                      </p>
+                      <ul className="space-y-4 pt-4">
+                        <li className="flex items-start gap-3">
+                          <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <span className="text-sm">Digitize the entire process to track and monitor every signatory's status in real-time.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <span className="text-sm">Securely archive and retrieve event documentation and reports in one central, accessible hub.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </div>
+                          <span className="text-sm">Deliver targeted announcements and real-time updates directly to the users who need them most.</span>
+                        </li>
+                      </ul>
                     </div>
-                    <h3 className="text-xl font-semibold">The Solution</h3>
-                  </div>
-                  <p className="text-base leading-relaxed text-muted-foreground">
-                    A centralized platform where proposals move digitally, files are archived automatically, and every member stays in the loop.
-                  </p>
-                  <ul className="space-y-4 pt-4">
-                    <li className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-sm">Automate routing for faster event approvals.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-sm">Centralize and preserve records automatically.</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                      <span className="text-sm">Stay synced with instant notifications.</span>
-                    </li>
-                  </ul>
-                </div>
-              </SpotlightCard>
+                  </SpotlightCard>
                 </InView>
               </div>
             </InView>
@@ -453,7 +467,165 @@ export default function Home() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
               }}
             >
-              <div className="relative overflow-hidden">
+              {/* Mobile: Single Column */}
+              <div className="md:hidden space-y-6">
+              {/* Event Management */}
+              <Card className="border-border bg-card/80 transition-all duration-300 hover:border-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-xl">Event Management</CardTitle>
+                  </div>
+                  <CardDescription className="text-base font-semibold text-primary">
+                    Streamlined Approvals
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    Draft, submit, and monitor proposals digitally. Watch your event move through the approval pathway with real-time status updates.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Digital Workspace */}
+              <Card className="border-border bg-card/80 transition-all duration-300 hover:border-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-xl">Digital Workspace</CardTitle>
+                  </div>
+                  <CardDescription className="text-base font-semibold text-primary">
+                    Centralized Collaboration
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    A dedicated hub for your officers. Manage shared drives, track financial workbooks, and store meeting minutes in one secure space.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Accreditation Helper */}
+              <Card className="border-border bg-card/80 transition-all duration-300 hover:border-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-xl">Accreditation Helper</CardTitle>
+                  </div>
+                  <CardDescription className="text-base font-semibold text-primary">
+                    Compliance Made Easy
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    Stay accredited without the stress. Monitor your real-time requirement checklist and automatically archive your accomplishment reports.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Smart Task Tracking */}
+              <Card className="border-border bg-card/80 transition-all duration-300 hover:border-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-xl">Smart Task Tracking</CardTitle>
+                  </div>
+                  <CardDescription className="text-base font-semibold text-primary">
+                    Project Management Built-In
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    Break down events into tasks and subtasks, assign coordinators, and track budget utilization and completion status in real-time.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Support System */}
+              <Card className="border-border bg-card/80 transition-all duration-300 hover:border-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-xl">Support System</CardTitle>
+                  </div>
+                  <CardDescription className="text-base font-semibold text-primary">
+                    Integrated Help Desk
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    Submit support tickets for technical problems or account inquiries directly within the platform and track their resolution status.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Centralized Announcements */}
+              <Card className="border-border bg-card/80 transition-all duration-300 hover:border-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-xl">Centralized Announcements</CardTitle>
+                  </div>
+                  <CardDescription className="text-base font-semibold text-primary">
+                    Targeted Communication
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    Receive urgent university memos and organization updates filtered specifically for your role, ensuring you only see what matters.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Digital Recruitment */}
+              <Card className="border-border bg-card/80 transition-all duration-300 hover:border-blue-500">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-xl">Digital Recruitment</CardTitle>
+                  </div>
+                  <CardDescription className="text-base font-semibold text-primary">
+                    Seamless Onboarding
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm leading-relaxed">
+                    Launch open application drives for new members or officers, review digital application forms, and approve rosters without paper.
+                  </p>
+                </CardContent>
+              </Card>
+              </div>
+
+              {/* Desktop: Infinite Slider */}
+              <div className="hidden md:block relative overflow-hidden">
                 <div className="absolute left-0 top-0 bottom-0 z-10 pointer-events-none">
                   <GradualBlur position="left" strength={3} width="4rem" />
                 </div>
@@ -620,144 +792,144 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Mobile Accessibility Section */}
-        <section id="mobile" className="py-10 lg:pt-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <InView
-              viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
-              }}
-            >
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left: Text Content */}
-                <InView
-                  viewOptions={{ once: true }}
-                  variants={{
-                    hidden: { opacity: 0, x: -50 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-                  }}
-                >
-                  <div className="space-y-8">
-                <div className="space-y-4">
-                  <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-                    Your Organization in <span className="text-primary">Your Pocket</span>
-                  </h2>
-                  <p className="text-lg text-muted-foreground">
-                    Stay connected wherever you are. BU-Ugnayan is fully responsive and optimized for mobile devices, ensuring you never miss an update.
-                  </p>
-                </div>
+          {/* Mobile Accessibility Section */}
+          <section id="mobile" className="py-10 lg:pt-40">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <InView
+                viewOptions={{ once: true, margin: '0px 0px -100px 0px' }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
+                }}
+              >
+                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Left: Text Content */}
+                  <InView
+                    viewOptions={{ once: true }}
+                    variants={{
+                      hidden: { opacity: 0, x: -50 },
+                      visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+                    }}
+                  >
+                    <div className="space-y-8">
+                  <div className="space-y-4">
+                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+                      Your Organization in <span className="text-primary">Your Pocket</span>
+                    </h2>
+                    <p className="text-lg text-muted-foreground">
+                      Stay connected wherever you are. BU-Ugnayan is fully responsive and optimized for mobile devices, ensuring you never miss an update.
+                    </p>
+                  </div>
 
-                <div className="space-y-6">
-                  <h3 className="text-xl font-semibold">Mobile Features Highlight</h3>
-                  
-                  <div className="space-y-5">
-                    {/* Real-time Notifications */}
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-semibold">Mobile Features Highlight</h3>
+                    
+                    <div className="space-y-5">
+                      {/* Event Discovery */}
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-base mb-1">Event Discovery</h4>
+                          <p className="text-sm text-muted-foreground">
+                            Browse, filter, and view details of campus events directly from a mobile device.
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-base mb-1">Notifications</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Instantly see when a proposal is signed or returned for revision.
-                        </p>
-                      </div>
-                    </div>
 
-                    {/* Quick Approvals */}
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                      {/* Digital Membership */}
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-base mb-1">Digital Membership</h4>
+                          <p className="text-sm text-muted-foreground">
+                            Discover student organizations and submit membership applications remotely.
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-base mb-1">Quick Approvals</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Advisers and Admins can review and approve documents directly from their phones.
-                        </p>
-                      </div>
-                    </div>
 
-                    {/* Event Updates */}
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+                      {/* Mobile Attendance */}
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-base mb-1">Mobile Attendance</h4>
+                          <p className="text-sm text-muted-foreground">
+                            Capabilities to join or check into events using mobile-friendly interfaces.
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h4 className="font-semibold text-base mb-1">Event Updates</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Students can view upcoming events and announcements on the fly.
-                        </p>
-                      </div>
-                    </div>
 
-                    {/* Task Tracking */}
-                    <div className="flex items-start gap-4">
-                      <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                        </svg>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-base mb-1">Task Tracking</h4>
-                        <p className="text-sm text-muted-foreground">
-                          Officers can manage tasks and check progress while on campus grounds.
-                        </p>
+                      {/* Status Tracking */}
+                      <div className="flex items-start gap-4">
+                        <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-base mb-1">Status Tracking</h4>
+                          <p className="text-sm text-muted-foreground">
+                            Monitor the real-time progress of proposals and applications on the go.
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                </div>
-                </InView>
+                  </div>
+                  </InView>
 
-              {/* Right: Mobile Phone Mockup */}
-                <InView
-                  viewOptions={{ once: true }}
-                  variants={{
-                    hidden: { opacity: 0, x: 50 },
-                    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-                  }}
-                >
-                  <div className="flex justify-center lg:justify-end">
-                <div className="relative w-full max-w-[280px]">
-                  <Carousel className="w-full">
-                    <CarouselContent>
-                      {mobileScreenshots.map((screenshot, index) => (
-                        <CarouselItem key={index}>
-                          <div className="relative w-full h-[580px] rounded-3xl overflow-hidden border border-border bg-muted shadow-2xl">
-                            <Image
-                              src={screenshot}
-                              alt={`Mobile Screenshot ${index + 1}`}
-                              fill
-                              sizes="(max-width: 640px) 100vw, 280px"
-                              className="object-cover"
-                              priority={index === 0}
-                            />
-                          </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    
-                    {/* Navigation Buttons */}
-                    <div className="flex justify-center gap-2 mt-4">
-                      <CarouselPrevious className="static translate-y-0 h-8 w-8" />
-                      <CarouselNext className="static translate-y-0 h-8 w-8" />
-                    </div>
-                  </Carousel>
+                {/* Right: Mobile Phone Mockup */}
+                  <InView
+                    viewOptions={{ once: true }}
+                    variants={{
+                      hidden: { opacity: 0, x: 50 },
+                      visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+                    }}
+                  >
+                    <div className="flex justify-center lg:justify-end">
+                  <div className="relative w-full max-w-[280px]">
+                    <Carousel className="w-full">
+                      <CarouselContent>
+                        {mobileScreenshots.map((screenshot, index) => (
+                          <CarouselItem key={index}>
+                            <div className="relative w-full h-[580px] rounded-3xl overflow-hidden border border-border bg-muted shadow-2xl">
+                              <Image
+                                src={screenshot}
+                                alt={`Mobile Screenshot ${index + 1}`}
+                                fill
+                                sizes="(max-width: 640px) 100vw, 280px"
+                                className="object-cover"
+                                priority={index === 0}
+                              />
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      
+                      {/* Navigation Buttons */}
+                      <div className="flex justify-center gap-2 mt-4">
+                        <CarouselPrevious className="static translate-y-0 h-8 w-8" />
+                        <CarouselNext className="static translate-y-0 h-8 w-8" />
+                      </div>
+                    </Carousel>
+                  </div>
+                  </div>
+                  </InView>
                 </div>
-                </div>
-                </InView>
-              </div>
-            </InView>
-          </div>
-        </section>
+              </InView>
+            </div>
+          </section>
 
         {/* Built for Every Role Section */}
         <section id="roles" className="py-10 lg:pt-40">
@@ -775,8 +947,8 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                   Built for <span className="text-primary">Every Role</span>
                 </h2>
-                <p className="text-lg text-muted-foreground">
-                  Whether you're a student leader, a faculty adviser, or an administrator, BU-Ugnayan is designed to make your specific role easier.
+                <p className="text-lg text-muted-foreground lg:px-20">
+                  Whether you're a student, org officer, a faculty adviser, or an administrator, BU-Ugnayan is designed to make your specific role easier.
                 </p>
               </div>
             </InView>
@@ -813,7 +985,7 @@ export default function Home() {
                     <AccordionTrigger>Organizations</AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-4 text-balance">
                       <p>
-                        Centralize operations with tools for event proposals, task tracking, financial monitoring, and automated archiving.
+                        Centralize operations with tools for event proposals, task tracking, membership application, and automated archiving.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
@@ -833,7 +1005,7 @@ export default function Home() {
                     <AccordionTrigger>Administrative Approvers</AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-4 text-balance">
                       <p>
-                        Accelerate workflows by digitally signing proposals and accessing university-wide compliance data.
+                        Accelerate workflows by digitally signing proposals and comprehensive access to organizational data.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
@@ -843,7 +1015,7 @@ export default function Home() {
                     <AccordionTrigger>System Administrators</AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-4 text-balance">
                       <p>
-                        Maintain full control through centralized user management, global configuration settings, and detailed security logs.
+                       Maintain full control by centralizing the management of users, organizations, events, reaccreditation, and support services.
                       </p>
                     </AccordionContent>
                   </AccordionItem>
@@ -1055,7 +1227,7 @@ export default function Home() {
                     />
                     <div className='p-5 text-center space-y-1 flex-grow flex flex-col justify-center'>
                       <h1 className=' text-sm font-semibold leading-snug text-zinc-950 dark:text-zinc-50'>
-                        Rouen R. Obligacion
+                        Rouen Obligacion
                       </h1>
                       <p className=' text-sm text-primary font-medium'>Lead Developer</p>
                     </div>
@@ -1242,6 +1414,29 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button - Mobile Only */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="md:hidden fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all duration-300 hover:scale-110 flex items-center justify-center"
+          aria-label="Scroll to top"
+        >
+          <svg 
+            className="h-6 w-6" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M5 10l7-7m0 0l7 7m-7-7v18" 
+            />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
